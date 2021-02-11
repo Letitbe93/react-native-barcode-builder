@@ -6,7 +6,7 @@ React Native component to generate barcodes. Uses [JsBarcode](https://github.com
 
 ### Step 1
 
-This library uses [@react-native-community/art](https://github.com/react-native-community/art) version 1.2.0 to draw vector graphics.
+Install [@react-native-community/art](https://github.com/react-native-community/art) version 1.2.0 to draw vector graphics. (Pod packages not installing if this package nested in dependency node module package. In this situation need install this package separately)
 
 ### Step 2
 
