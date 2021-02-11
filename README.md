@@ -26,8 +26,6 @@ import Barcode from "react-native-barcode-builder";
 <Barcode value="Hello World" format="CODE128" />;
 ```
 
-You can find more info about the supported barcodes in the [JsBarcode README](https://github.com/lindell/JsBarcode#supported-barcodes).
-
 ![demo](./images/example.png)
 
 ## Properties
@@ -42,3 +40,6 @@ You can find more info about the supported barcodes in the [JsBarcode README](ht
 | lineColor  | Color of the bars and text (default: #000000)      |
 | background | Background color of the barcode (default: #ffffff) |
 | onError    | Handler for invalid barcode of selected format     |
+
+## Supported barcodes
+'CODE-128' | 'EAN-8' | EAN-13| 'CODE-39' | 'ITF' | 'MSI' | 'Pharmacode' | 'Codabar'
