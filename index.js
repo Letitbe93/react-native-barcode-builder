@@ -82,7 +82,8 @@ export default class Barcode extends PureComponent {
         this.state.barCodeWidth = encoded.data.length * this.props.width;
       }
     }catch(e){
-      this.setState({error: true})
+      console.error(e);
+      this.setState({error: true});
     }
   }
 
