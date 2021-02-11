@@ -63,10 +63,6 @@ export default class Barcode extends PureComponent {
     this.update();
   }
 
-  componentDidCatch(){
-    console.log('error')
-  }
-
   checkEan13or8Format(value){
     if(value.length === 12) return 'EAN13' 
     if(value.length === 7) return 'EAN8' 
@@ -76,17 +72,16 @@ export default class Barcode extends PureComponent {
 
   update() {
     try{
-    const {value, format} = this.props;
-    const initFormat = format === 'EAN8-13' ? this.checkEan13or8Format(value) : format;
+      const { value, format } = this.props;
+      const initFormat = format === 'EAN8-13' ? this.checkEan13or8Format(value) : format;
+      const encoder = barcodes[initFormat];
+      const encoded = this.encode(value, encoder, this.props);
 
-    const encoder = barcodes[initFormat];
-
-    const encoded = this.encode(value, encoder, this.props);
-
-    if (encoded) {
-      this.state.bars = this.drawSvgBarCode(encoded, this.props);
-      this.state.barCodeWidth = encoded.data.length * this.props.width;
-    }}catch(e){
+      if (encoded) {
+        this.state.bars = this.drawSvgBarCode(encoded, this.props);
+        this.state.barCodeWidth = encoded.data.length * this.props.width;
+      }
+    }catch(e){
       this.setState({error: true})
     }
   }
