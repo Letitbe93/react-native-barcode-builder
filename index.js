@@ -11,7 +11,7 @@ export default class Barcode extends PureComponent {
     /* what the barCode stands for */
     value: PropTypes.string,
     /* Select which barcode type to use */
-    format: PropTypes.oneOf(Object.keys(barcodes)),
+    format: PropTypes.oneOf([Object.keys(barcodes), 'EAN8-13']) ,
     /* Override the text that is displayed */
     text: PropTypes.string,
     /* The width option is the width of a single bar. */
@@ -44,7 +44,8 @@ export default class Barcode extends PureComponent {
     super(props);
     this.state = {
       bars: [],
-      barCodeWidth: 0
+      barCodeWidth: 0,
+      error: false
     };
   }
 
@@ -62,13 +63,31 @@ export default class Barcode extends PureComponent {
     this.update();
   }
 
+  componentDidCatch(){
+    console.log('error')
+  }
+
+  checkEan13or8Format(value){
+    if(value.length === 12) return 'EAN13' 
+    if(value.length === 7) return 'EAN8' 
+
+    return format;
+  }
+
   update() {
-    const encoder = barcodes[this.props.format];
-    const encoded = this.encode(this.props.value, encoder, this.props);
+    try{
+    const {value, format} = this.props;
+    const initFormat = format === 'EAN8-13' ? this.checkEan13or8Format(value) : format;
+
+    const encoder = barcodes[initFormat];
+
+    const encoded = this.encode(value, encoder, this.props);
 
     if (encoded) {
       this.state.bars = this.drawSvgBarCode(encoded, this.props);
       this.state.barCodeWidth = encoded.data.length * this.props.width;
+    }}catch(e){
+      this.setState({error: true})
     }
   }
 
@@ -136,7 +155,8 @@ export default class Barcode extends PureComponent {
     var encoder;
 
     try {
-      encoder = new Encoder(text, options);
+      encoder = new Encoder(text, options={...options, flat: true});
+      // encoder1 = new Encoder(text);
     } catch (error) {
       // If the encoder could not be instantiated, throw error.
       if (this.props.onError)  {
@@ -170,6 +190,8 @@ export default class Barcode extends PureComponent {
     const backgroundStyle = {
       backgroundColor: this.props.background
     };
+    if(this.state.error) return <Text style={{color: this.props.textColor, textAlign: 'center'}} >{'Error Barcode'}</Text>
+
     return (
       <View style={[styles.svgContainer, backgroundStyle]}>
         <Surface height={this.props.height} width={this.state.barCodeWidth}>
