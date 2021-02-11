@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type Format = 'CODE128' | 'EAN' | 'CODE39' | 'ITF' | 'MSI' | 'Pharmacode' | 'Codabar'
+export type Format = 'CODE128' | 'EAN8' | 'EAN13' | 'CODE39' | 'ITF' | 'MSI' | 'Pharmacode' | 'Codabar'
 
 export interface BarcodeProps {
     value: string
