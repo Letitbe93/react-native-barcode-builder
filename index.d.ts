@@ -5,6 +5,7 @@ export type Format = 'CODE128' | 'EAN8-13' | 'CODE39' | 'ITF' | 'MSI' | 'Pharmac
 export interface BarcodeProps {
     value: string
     format: Format
+    onErrorText?: string
     text?: string
     width?: number
     height?: number
