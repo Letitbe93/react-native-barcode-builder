@@ -186,7 +186,7 @@ export default class Barcode extends PureComponent {
     const backgroundStyle = {
       backgroundColor: this.props.background
     };
-    if(this.state.error) return <Text style={{color: this.props.textColor, textAlign: 'center'}} >{'Error Barcode'}</Text>
+    if(this.state.error) return <Text style={{color: this.props.textColor, textAlign: 'center'}} >{this.props.onErrorText || 'Error Barcode'}</Text>
 
     return (
       <View style={[styles.svgContainer, backgroundStyle]}>
