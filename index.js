@@ -15,6 +15,8 @@ export default class Barcode extends PureComponent {
     /* Override the text that is displayed */
     text: PropTypes.string,
     /* The width option is the width of a single bar. */
+    /* Override the error text that is displayed */
+    onErrorText: PropTypes.string,
     width: PropTypes.number,
     /* The height of the barcode. */
     height: PropTypes.number,
