@@ -66,10 +66,12 @@ export default class Barcode extends PureComponent {
   }
 
   checkEan13or8Format(value){
-    if(value.length === 12) return 'EAN13' 
-    if(value.length === 7) return 'EAN8' 
+    const { length } = value
+    
+    if(length === 12 || length === 13) return 'EAN13' 
+    if(length === 7 || length === 8) return 'EAN8' 
 
-    return format;
+    return value;
   }
 
   update() {
